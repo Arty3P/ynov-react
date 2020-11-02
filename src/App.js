@@ -1,26 +1,29 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
+
+import { UserContext, users } from './UserContext';
+
+import { Fetch } from './views/fetch'
+import { FetchUser } from './views/fetchUser'
+import { Undo } from './views/undo'
+
 import './App.css';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+	return(
+		<div id="app">
+			<Router>
+				<Switch>
+					<Redirect exact from="/" to="/fetch" />
+					<Route exact path="/fetch" render={() => <Fetch />} />
+					<Route exact path="/fetch/:uuid" render={() => <FetchUser />} />
+					<Route exact path="/undo" render={() => <Undo />} />
+				</Switch>
+			</Router>
+		</div>
+	)
+
 }
 
-export default App;
+export { App }
